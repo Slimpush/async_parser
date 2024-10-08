@@ -1,24 +1,17 @@
 from datetime import datetime
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
-from models.models import SPIMEXTradingResults, Base
+
 from config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
+from models.models import Base, SPIMEXTradingResults
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = (
-    f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-)
+DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 
-engine = create_async_engine(
-    DATABASE_URL,
-    pool_pre_ping=True,
-    echo=True
-)
+engine = create_async_engine(DATABASE_URL, pool_pre_ping=True, echo=True)
 
 AsyncSessionFactory = sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False
+    bind=engine, class_=AsyncSession, expire_on_commit=False
 )
 
 
@@ -42,7 +35,7 @@ async def insert_data(data_list: list[tuple]) -> None:
                     volume=data[6],
                     total=data[7],
                     count=data[8],
-                    date=datetime.strptime(data[9], "%d.%m.%Y")
+                    date=datetime.strptime(data[9], "%d.%m.%Y"),
                 )
                 for data in data_list
             ]

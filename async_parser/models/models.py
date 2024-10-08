@@ -1,5 +1,6 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Float, Date, DateTime
+
+from sqlalchemy import Column, Date, DateTime, Float, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -27,7 +28,8 @@ class SPIMEXTradingResults(Base):
         created_on (datetime): Время создания записи.
         updated_on (datetime): Время последнего обновления записи.
     """
-    __tablename__ = 'spimex_trading_results'
+
+    __tablename__ = "spimex_trading_results"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     exchange_product_id = Column(String, nullable=False)
@@ -41,6 +43,4 @@ class SPIMEXTradingResults(Base):
     delivery_type_id = Column(String)
     date = Column(Date)
     created_on = Column(DateTime, default=get_current_time)
-    updated_on = Column(DateTime,
-                        default=get_current_time,
-                        onupdate=get_current_time)
+    updated_on = Column(DateTime, default=get_current_time, onupdate=get_current_time)
