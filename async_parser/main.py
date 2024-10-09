@@ -1,9 +1,10 @@
 import asyncio
-import aiohttp
 import time
-from parsers.url_collector import collect_all_trade_links
-from parsers.excel_parser import parse_xls_data
+
+import aiohttp
 from db_manager import create_tables, insert_data
+from parsers.excel_parser import parse_xls_data
+from parsers.url_collector import collect_all_trade_links
 
 
 async def fetch_content(link: str) -> bytes:

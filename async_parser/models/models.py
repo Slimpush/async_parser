@@ -43,4 +43,7 @@ class SPIMEXTradingResults(Base):
     delivery_type_id = Column(String)
     date = Column(Date)
     created_on = Column(DateTime, default=get_current_time)
-    updated_on = Column(DateTime, default=get_current_time, onupdate=get_current_time)
+    updated_on = Column(
+        DateTime, default=get_current_time,
+        onupdate=get_current_time
+    )
