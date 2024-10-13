@@ -1,7 +1,8 @@
-from datetime import datetime
+from datetime import date, datetime
 
-from sqlalchemy import Column, Date, DateTime, Float, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import mapped_column, Mapped
+
 
 Base = declarative_base()
 
@@ -31,19 +32,19 @@ class SPIMEXTradingResults(Base):
 
     __tablename__ = "spimex_trading_results"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    exchange_product_id = Column(String, nullable=False)
-    exchange_product_name = Column(String)
-    delivery_basis_name = Column(String)
-    volume = Column(Float)
-    total = Column(Float)
-    count = Column(Integer)
-    oil_id = Column(String)
-    delivery_basis_id = Column(String)
-    delivery_type_id = Column(String)
-    date = Column(Date)
-    created_on = Column(DateTime, default=get_current_time)
-    updated_on = Column(
-        DateTime, default=get_current_time,
-        onupdate=get_current_time
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    exchange_product_id: Mapped[str] = mapped_column(nullable=False)
+    exchange_product_name: Mapped[str]
+    delivery_basis_name: Mapped[str]
+    volume: Mapped[float]
+    total: Mapped[float]
+    count: Mapped[int]
+    oil_id: Mapped[str]
+    delivery_basis_id: Mapped[str]
+    delivery_type_id: Mapped[str]
+    date: Mapped[date]
+
+    created_on: Mapped[datetime] = mapped_column(default=get_current_time)
+    updated_on: Mapped[datetime] = mapped_column(
+        default=get_current_time, onupdate=get_current_time
     )
